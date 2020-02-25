@@ -1,5 +1,15 @@
-import x from './x'
+// import x from './x'
+import Observable from '../packages/Observable'
 import './style.css'
-const a:string = 'hello ts'
-console.log(a)
-console.log(x)
+
+let obj1 = {
+  name: 'wanmao'
+}
+
+Observable(obj1)
+
+console.log(obj1.name);
+
+obj1.name = 'oliver'
+
+console.log(obj1.name);
