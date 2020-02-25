@@ -1,0 +1,18 @@
+body {
+  background: #333;
+  color: white;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  height: 30vh;
+  border: 3px solid yellow;
+}
+
+#box {
+  text-align: center;
+}
