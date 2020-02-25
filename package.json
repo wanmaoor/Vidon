@@ -1,0 +1,24 @@
+{
+  "name": "Vidon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:wanmaoor/Vidon.git",
+  "author": "wanmaoor <wanmao1284879375@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^3.4.1",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "style-loader": "^1.1.2",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  },
+  "scripts": {
+    "build": "rm -rf dist && webpack --config webpack.config.prod.js",
+    "start": "webpack-dev-server --open",
+    "dev": "rm -rf dist && webpack"
+  }
+}
