@@ -16,3 +16,8 @@ body {
 #box {
   text-align: center;
 }
+
+input {
+  line-height: 5vh;
+  font-size: 2rem;
+}

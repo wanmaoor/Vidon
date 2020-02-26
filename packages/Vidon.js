@@ -8,16 +8,16 @@ function Reactive(data) {
       enumerable: true,
       configurable: true,
       get: function() {
-        console.log(`get ${key}: ${val}`);
+        // console.log(`get ${key}: ${val}`);
         if (currentObserver) {
-          console.log("has currentObserver");
+          // console.log("has currentObserver");
           currentObserver.subscribeTo(subject);
         }
         return val;
       },
       set: function(newVal) {
         val = newVal;
-        console.log("start notify...");
+        // console.log("start notify...")
         subject.notify();
       }
     });
@@ -68,7 +68,7 @@ class Observer {
   }
   subscribeTo(subject) {
     if (!this.subjects[subject.id]) {
-      console.log("subscribeTo.. ", subject);
+      // console.log("subscribeTo.. ", subject);
       subject.addObserver(this);
       this.subjects[subject.id] = subject;
     }
@@ -81,42 +81,72 @@ class Observer {
   }
 }
 
-export default class Vidon {
-  constructor(opts) {
-    this.init(opts);
-    Reactive(this.$data);
-    this.compile();
-  }
-  init(opts) {
-    this.$el = document.querySelector(opts.el);
-    this.$data = opts.data;
-    this.observers = [];
-  }
+class Compile {
   compile() {
-    this.traverse(this.$el);
+    // throw new Error("Method not implemented.");
+    this.traverse(this.node);
   }
   traverse(node) {
+    // throw new Error("Method not implemented.");
     if (node.nodeType === 1) {
+      this.compileNode(node);
       node.childNodes.forEach(childNode => {
         this.traverse(childNode);
       });
     } else if (node.nodeType === 3) {
       //文本
-      this.renderText(node);
+      this.compileText(node);
     }
   }
-  renderText(node) {
+  compileNode(node) {
+    // throw new Error("Method not implemented.");
+    let attrs = [...node.attributes];
+    console.log("TCL: Compile -> compileNode -> attrs", attrs);
+    attrs.forEach(attr => {
+      if (this.isDirective(attr.name)) {
+        let key = attr.value;
+        node.value = this.vm.$data[key];
+        new Observer(this.vm, key, function(newVal) {
+          node.value = newVal;
+        });
+        node.oninput = e => {
+          this.vm.$data[key] = e.target.value;
+        };
+      }
+    });
+  }
+  isDirective(name) {
+    return name === "v-model";
+  }
+  compileText(node) {
+    console.log("TCL: Compile -> compileText -> node", node);
+    // throw new Error("Method not implemented.");
     let reg = /{{(.+?)}}/g;
     let match;
     while ((match = reg.exec(node.nodeValue))) {
-    console.log("TCL: Vidon -> renderText -> match", match)
-      
       let raw = match[0];
       let key = match[1].trim();
-      node.nodeValue = node.nodeValue.replace(raw, this.$data[key]);
-      new Observer(this, key, function(val, oldVal) {
+      node.nodeValue = node.nodeValue.replace(raw, this.vm.$data[key]);
+      new Observer(this.vm, key, function(val, oldVal) {
         node.nodeValue = node.nodeValue.replace(oldVal, val);
       });
     }
+  }
+  constructor(vm) {
+    this.vm = vm;
+    this.node = vm.$el;
+    this.compile();
+  }
+}
+
+export default class Vidon {
+  constructor(opts) {
+    this.init(opts);
+    Reactive(this.$data);
+    new Compile(this);
+  }
+  init(opts) {
+    this.$el = document.querySelector(opts.el);
+    this.$data = opts.data;
   }
 }
