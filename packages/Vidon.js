@@ -103,19 +103,27 @@ class Compile {
     let attrs = [...node.attributes];
     console.log("TCL: Compile -> compileNode -> attrs", attrs);
     attrs.forEach(attr => {
-      if (this.isDirective(attr.name)) {
+      if (this.isModelDirective(attr.name)) {
         let key = attr.value;
         node.value = this.vm.$data[key];
-        new Observer(this.vm, key, function(newVal) {
+        new Observer(this.vm, key, function (newVal) {
           node.value = newVal;
         });
         node.oninput = e => {
           this.vm.$data[key] = e.target.value;
         };
-      }
+      } else if (this.isEventDirective(attr.name)) {
+        let eventType = attr.name.substr(1)
+        let methodName = attr.value
+        node.addEventListener(eventType, this.vm.$methods[methodName])
+       }
     });
   }
-  isDirective(name) {
+  isEventDirective(name) {
+    // throw new Error("Method not implemented.");
+    return name.indexOf('@') === 0
+  }
+  isModelDirective(name) {
     return name === "v-model";
   }
   compileText(node) {
@@ -148,5 +156,27 @@ export default class Vidon {
   init(opts) {
     this.$el = document.querySelector(opts.el);
     this.$data = opts.data;
+    this.$methods = opts.methods
+
+    for (const key in this.$data) {
+      if (this.$data.hasOwnProperty(key)) {
+        Object.defineProperty(this, key, {
+          enumerable: true,
+          configurable: true,
+          get: () => { 
+            return this.$data[key]
+          },
+          set: newVal => {
+            this.$data[key] = newVal
+          }
+        })
+      }
+    }
+
+    for (const key in this.$methods) {
+      if (this.$methods.hasOwnProperty(key)) {
+        this.$methods[key] = this.$methods[key].bind(this)
+      }
+    }
   }
 }

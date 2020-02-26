@@ -4,13 +4,12 @@ body {
 }
 
 #app {
+  margin: 0 auto;
   display: flex;
+  width: 50vw;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-}
-
-.container {
-  height: 30vh;
-  border: 3px solid yellow;
 }
 
 #box {
@@ -20,4 +19,8 @@ body {
 input {
   line-height: 5vh;
   font-size: 2rem;
+}
+
+button {
+  padding: 5px 10px;
 }

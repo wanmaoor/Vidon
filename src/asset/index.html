@@ -9,7 +9,8 @@
   <body>
     <div id="app">
        <input v-model="name" type="text" placeholder="这是双向绑定, 输入些什么...">
-      <h1>{{name}} 's age is {{age}}, 性别: {{gender}}, {{age}} 岁是一个美好的年纪</h1>
+      <h1>{{name}} 的年纪是 {{age}} 岁, 性别: {{gender}}, {{age}} 岁是一个美好的年纪</h1>
+      <button @click="sayHi">点击</button>
     </div>
   </body>
 </html>
