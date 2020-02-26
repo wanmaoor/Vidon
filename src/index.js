@@ -2,18 +2,18 @@ import Vidon from '../packages/Vidon.js';
 import './style.css'
 
 let vm = new Vidon({
-  el: '#app',
+  el: "#app",
   data: {
-    name: '小马',
+    name: "小马🐴",
     age: 12,
-    gender: '男'
+    gender: "男"
   },
   methods: {
-    sayHi() { 
-      alert(`你好, ${this.name}`)
+    sayHi() {
+      alert(`你好, ${this.name}`);
     }
   }
-})
+});
 
 // setInterval(function () {
 //   vm.$data.age++
