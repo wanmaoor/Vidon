@@ -175,6 +175,16 @@ export default class Vidon {
 
     for (const key in this.$methods) {
       if (this.$methods.hasOwnProperty(key)) {
+        Object.defineProperty(this, key, {
+          enumerable: true,
+          configurable: true,
+          get: () => { 
+            return this.$methods[key]
+          },
+          set: (fn) => { 
+            this.$methods[key] = fn
+          }
+        })
         this.$methods[key] = this.$methods[key].bind(this)
       }
     }
