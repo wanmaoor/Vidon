@@ -8,9 +8,13 @@
 
 > 一个以纯JS实现的简易MVVM框架
 
-### 🏠 [Homepage](https://github.com/wanmaoor/Vidon)
+### 🏠 [源码地址](https://github.com/wanmaoor/Vidon)
 
-### ✨ [Demo](https://wanmaoor.github.io/Vidon/)
+### ✨ [预览地址](https://wanmaoor.github.io/Vidon/)
+
+## Description
+
+![vidon](./src/Vidon.png)
 
 ## Install
 

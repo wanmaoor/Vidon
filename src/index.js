@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Vidon from '../packages/Vidon.js';
 import './style.css'
 
@@ -11,6 +12,9 @@ let vm = new Vidon({
   methods: {
     sayHi() {
       alert(`你好, ${this.name}`);
+    },
+    auto() { 
+      alert('我自己执行的')
     }
   }
 });
@@ -20,5 +24,11 @@ let vm = new Vidon({
 // }, 1000)
 
 setTimeout(() => {
-  vm.$data.age = 20
+  vm.age = 20
+  vm.auto()
+  setTimeout(() => {
+    vm.auto = () => { alert('2秒后我又弹出来了') }
+    vm.auto()
+  }, 2000)
+  
 }, 3000)
