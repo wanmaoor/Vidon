@@ -1,24 +1,19 @@
-import Reactive from '../packages/Reactive'
-import { Subject, Observe} from '../packages/Observe'
+import Vidon from '../packages/Vidon.js';
 import './style.css'
 
-let obj1 = {
-  name: 'wanmao'
-}
+let vm = new Vidon({
+  el: '#app',
+  data: {
+    name: 'wanmao',
+    age: 12,
+    gender: '男'
+  }
+})
 
-Reactive(obj1)
+// setInterval(function () {
+//   vm.$data.age++
+// }, 1000)
 
-console.log(obj1.name);
-
-obj1.name = 'oliver'
-
-
-console.log(obj1.name);
-let subject = new Subject()
-let observer = new Observe()
-observer.update = function () {
-  console.log('observer update')
-}
-observer.subscribeTo(subject)  //观察者订阅主题
-
-subject.notify()
+setTimeout(() => {
+  vm.$data.age = 100
+}, 3000)
