@@ -7,10 +7,15 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-    <div id="app">
-       <input v-model="name" type="text" placeholder="这是双向绑定, 输入些什么...">
-      <h1>{{name}} 的年纪是 {{age}} 岁, 性别: {{gender}}</h1>
-      <button @click="sayHi">点击</button>
+<!--    <div id="app">-->
+<!--       <input v-model="name" type="text" placeholder="这是双向绑定, 输入些什么...">-->
+<!--      <h1>{{name}} 的年纪是 {{age}} 岁, 性别: {{gender}}</h1>-->
+<!--      <button @click="sayHi">点击</button>-->
+
+<!--    </div>-->
+    <div id="app1">
+      <p>{{n}}</p>
+      <button @click="increment">+1</button>
     </div>
   </body>
 </html>
